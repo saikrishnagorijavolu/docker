@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sai-image-deployment
-  namespace: acr-kube
+  name: sai-image
+  namespace: kube24
   labels:
-    app: sai-image-deployment
+    app: sai-image
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: sai-image-deployment
+      app: sai-image
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -18,7 +18,7 @@ spec:
   template:
     metadata:
       labels:
-        app: sai-image-deployment
+        app: sai-image
     spec:
       affinity:
         nodeAffinity:
@@ -30,7 +30,7 @@ spec:
                     values:
                       - prob
       containers:
-        - name: sai-image-deployment
+        - name: sai-image
           image: saikrishna998/docker-app:latest
           ports:
             - containerPort: 5000
@@ -52,5 +52,5 @@ spec:
             - name: DB_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: sai-image-deployment
+                  name: sai-image
                   key: DB_HOST
